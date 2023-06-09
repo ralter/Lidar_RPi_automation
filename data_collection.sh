@@ -32,19 +32,25 @@ lightoff
 sleep 5
 
 # Main script
-while true; do
+if eth_active; then
+# Ethernet active, execute the command
+    dumpcap -i eth0 -P -w $dt.pcap &
+    pid=$!
     if eth_active; then
-        # Ethernet active, execute the command
-        dumpcap -i eth0 -P -w $dt.pcap
+        echo "working"
+        sleep 2
     else
-        # Ethernet interface is severed, exit the script
-        #fflush CMD
-        #Check fstab for write permissions
+        kill -2 $pid
         echo "Ethernet interface is severed. Exiting..."
         blink
         shutdown -h now
-    fi
-done
+else
+# Ethernet interface is severed, exit the script
+#fflush CMD
+#Check fstab for write permissions
+    echo "Not getting data"
+    blink
+    exit 1
 
 #a test we can do is edit rc local is echo "hi">~/blank.txt
 

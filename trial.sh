@@ -9,16 +9,16 @@ eth_active() {
     fi
 }
 
-lighton = ‘echo 1 > /sys/class/leds/led1/brightness’
-lightoff = ‘echo 0 > /sys/class/leds/led1/brightness’
+lighton = ‘echo 1 | tee /sys/class/leds/led1/brightness’
+lightoff = ‘echo 0 | tee /sys/class/leds/led1/brightness’
 blink(){
 max=10
 for (( i=1; i <= $max; ++i ))
 do
-    lighton
+    $lighton
     echo 'on'
     sleep 0.25
-    lightoff
+    $lightoff
     echo 'off'
     sleep 0.25
 done
@@ -28,7 +28,7 @@ dt=$(date '+%Y_%m_%d_%H_%M')
 umask 0111
 #touch $dt.pcap
 
-lightoff
+$lightoff
 sleep 5
 blink
 

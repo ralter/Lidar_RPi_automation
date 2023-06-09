@@ -22,5 +22,9 @@ will collect 10 seconds of data from the ethernet port (the -i eth0) as a .pcap 
 
 NOTE: if you want to write directly to a flash drive -- a goal for this project -- make sure that the drive is mounted with write permission. This will send you many painful errors.
 
+## Run the script
+First run 'chmod +x data_collection.sh'. sudo it if it doesn't work as the standard user
 
+Run the data_collection.sh using 'sudo bash data_collection.sh'
+If all goes to according to plan, it will collect data and terminate if you unplug the ethernet.
 
