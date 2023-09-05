@@ -44,13 +44,13 @@ if eth_active; then
         echo "Ethernet interface is severed. Exiting..."
         blink
         shutdown -h now
+    fi
 else
 # Ethernet interface is severed, exit the script
-#fflush CMD
-#Check fstab for write permissions
     echo "Not getting data"
     blink
     exit 1
-
+fi
+#fflush CMD
+#Check fstab for write permissions
 #a test we can do is edit rc local is echo "hi">~/blank.txt
-
