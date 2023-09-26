@@ -49,7 +49,7 @@ else
 # Ethernet interface is severed, exit the script
     echo "Not getting data"
     blink
-    exit 1
+    exit 0
 fi
 #fflush CMD
 #Check fstab for write permissions
