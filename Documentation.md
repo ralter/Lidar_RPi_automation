@@ -18,5 +18,39 @@ Another option is kill -SIGTERM <PID>
 We could also try using "done" after fi
 We could set a maximum run time. This limits the number of minutes the process runs before killing it, so data would only be collected for a certain period of time.
 kill -SIGINT is another option
+Some suggestions after looking at the Brockschmidt repo:
+-they used sys.exit(0) which I'm guessing is a verion of exit 0
+-they also used signal.SIGINT and signal.SIGTERM which is different from kill -SIGTERM or kill -SIGINT and could be a path to try
+-To terminate the program they used trap -SIGINT SIGTERM
+exitscript () {
+    echo "$(date): SIGINT or SIGTERM detected"
+    trap - SIGINT SIGTERM
+    if ! [ -z ${CHILD+x} ]
+    then
+	echo "$(date): Terminating data logging..."
+	kill $CHILD
+	wait $CHILD
+    fi
+    stopblink
+    ledoff
+    sleep 0.1
+    if [ $DOPOWEROFF -eq 1 ]
+    then
+	echo "$(date): Powering off computer..."
+	poweroff
+    fi
+    exit 1
+}
+trap exitscript SIGINT SIGTERM
 
+# Waits for a button pressm then terminates the program and powers the computer down
+waitbutton () {
+    $DIR/waitbutton.py
+    if [ $BTNPOWEROFF -eq 1 ]
+    then
+	DOPOWEROFF=1
+    fi
+    exitscript
+}
 
+^Here is the script they used. It looks like they used a look with exitscript and exit1
