@@ -53,4 +53,6 @@ waitbutton () {
     exitscript
 }
 
-^Here is the script they used. It looks like they used a look with exitscript and exit1
+^Here is the script they used. It looks like they used a look with exitscript and exit
+1
+To kill all processes kill -9 -1
