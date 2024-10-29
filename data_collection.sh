@@ -1,6 +1,7 @@
 #!/bin/bash
 
-#put in /etc/rc.local
+#put in /etc/rc.local. add:
+#sh ~/Desktop/data_collection.sh
 
 eth_active(){
 	ip link show "$1" 2>&1 | grep "state UP" 2>&1 >/dev/null
